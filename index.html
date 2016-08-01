@@ -19,30 +19,72 @@
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+      <h2>
+<a id="编码规范" class="anchor" href="#%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>编码规范</h2>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
+<ol>
+<li>类名和文件必须一致，一个文件的代码不能超过1000行，一个函数的代码不能超过100行，一个函数的参数不能超过6个。</li>
+<li>类需要注释，public函数放在文件的最上面，private函数放在文件的最下方。</li>
+<li>private函数和变量必须以下划线开头。</li>
+<li>函数名、变量名、类型、文件名必须采用峰驼式，类名、文件名必须首字母大写，函数名和变量名必须首字母小写。</li>
+<li>对于变量名的要求，必须将变量类型写在名字前面，作为前缀。
+<code>
+$objUserMode = new UserMode();
+$strUserName = 'luce';
+$arrParams = array('name' =&gt; 'name1');
+$boolRes = true;
+$intUserId = 4;
+$jsonData = "['name':'name1']";
+</code>
+</li>
+<li>调用的函数或接口时，如果有返回值，必须对返回值进行处理。</li>
+<li>一个函数如果有返回值，必须在最后统一返回，禁止多个返回埋点。</li>
+<li>禁止使用绝对路径，可以考虑使用：_LIB_ROOT、_PATH_ROOT连接的方式。</li>
+<li>代码中禁止出现针对调整PHP错误级别的函数：error_reporting及时区的控制。</li>
+<li>代码中禁止出现明文的域名、IP、或端口， 全部走配置流来处理。</li>
+<li>
+<p>关于空格的使用，见例子：</p>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
-
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-users-and-teams" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">class</span> <span class="pl-en">UserMode</span>() {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">private</span> <span class="pl-smi">$_objAssetMode</span> <span class="pl-k">=</span> <span class="pl-c1">null</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">contruct</span>() {</span>
+<span class="pl-s1">        <span class="pl-smi">$_objAssetMode</span> <span class="pl-k">=</span> <span class="pl-c1">core</span><span class="pl-k">::</span>Singleton(<span class="pl-s"><span class="pl-pds">"</span>library.moduel.UserMode<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">getUserInfo</span>(<span class="pl-smi">$intUserId</span>, <span class="pl-smi">$strEmail</span>) {</span>
+<span class="pl-s1">        <span class="pl-smi">$arrUserInfo</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">_objUserDb</span><span class="pl-k">-&gt;</span>select();</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">getUserList</span>(<span class="pl-smi">$arrWhere</span>, <span class="pl-smi">$arrFiled</span> <span class="pl-k">=</span> <span class="pl-c1">array</span>()) {</span>
+<span class="pl-s1">        <span class="pl-smi">$arrUserList</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">_objUserDb</span><span class="pl-k">-&gt;</span>select();</span>
+<span class="pl-s1">        <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-c1">empty</span>(<span class="pl-smi">$arrUserList</span>)) {</span>
+<span class="pl-s1">            <span class="pl-k">foreach</span> (<span class="pl-smi">$arrUserList</span> <span class="pl-k">as</span> <span class="pl-smi">$key</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">$value</span>) {</span>
+<span class="pl-s1">                <span class="pl-smi">$arrUserList</span>[<span class="pl-smi">$key</span>][<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-k">!</span><span class="pl-c1">empty</span>(<span class="pl-smi">$value</span>) ? <span class="pl-smi">$value</span> : <span class="pl-s"><span class="pl-pds">'</span>default name<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1">                <span class="pl-k">if</span> (<span class="pl-c1">1</span> <span class="pl-k">==</span> <span class="pl-smi">$value</span>[<span class="pl-s"><span class="pl-pds">'</span>status<span class="pl-pds">'</span></span>]) {</span>
+<span class="pl-s1">                    <span class="pl-smi">$statusInfo</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">_objStatus</span><span class="pl-k">-&gt;</span>getUserInfo(<span class="pl-smi">$value</span>[<span class="pl-s"><span class="pl-pds">'</span>status<span class="pl-pds">'</span></span>]);</span>
+<span class="pl-s1">                } <span class="pl-k">elseif</span> (<span class="pl-c1">2</span> <span class="pl-k">==</span> <span class="pl-smi">$value</span>[<span class="pl-s"><span class="pl-pds">'</span>status<span class="pl-pds">'</span></span>]) {</span>
+<span class="pl-s1">                    <span class="pl-c">//do that</span></span>
+<span class="pl-s1">                } <span class="pl-k">else</span> {</span>
+<span class="pl-s1">                    <span class="pl-c">//do else</span></span>
+<span class="pl-s1">                }</span>
+<span class="pl-s1">            }</span>
+<span class="pl-s1">        }</span>
+<span class="pl-s1">        <span class="pl-k">return</span> <span class="pl-smi">$arrUserList</span>;</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">private</span> <span class="pl-k">function</span> <span class="pl-en">_doUserInfoData</span>(<span class="pl-smi">$arrUserData</span>) {</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1">}</span></pre></div>
+</li>
+<li>代码中禁止直接拼接SQL的方式(特殊场景除外)。</li>
+<li>禁止关联表查询。</li>
+<li>每个C层的接口必须有一个与之相对应的私有的过滤函数，来处理参数过滤问题。（视情况而定，如果参数过少，可以在方法体内过滤）</li>
+<li>vendor层不能操作DB。</li>
+<li>module、job层不操作接口。</li>
+</ol>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/wufaliang0415/essay">Essay</a> is maintained by <a href="https://github.com/wufaliang0415">wufaliang0415</a>.</span>
